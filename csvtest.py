@@ -7,4 +7,4 @@ f = open('data.csv', 'rb')
 dataReader = csv.reader(f)
 
 for row in dataReader:
-   print row
+   print ' ' .join(row)
