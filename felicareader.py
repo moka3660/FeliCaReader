@@ -20,22 +20,23 @@ def connected(tag):
 	print "idmdata = %s" %idmdata
 	IDm = int(idmdata,16)
 	print "IDm = %x" % IDm
+	f = open('Logdata.csv', 'ab')
+	csvWriter = csv.writer(f)
+
+	now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+	listData = []	#書き込み用
+	listData.append(now)	#時刻を追加
+	listData.append(IDm)	#IDmを追加
+	csvWriter.writerow(listData)	#書き込み
+
+	f.close()
 
 
 clf = nfc.ContactlessFrontend('usb')
 clf.connect(rdwr={'on-connect': connected})
 
-print "%x" % IDm
+#print "%x" % IDm
 
-f = open('Logdata.csv', 'ab')
-csvWriter = csv.writer(f)
 
-now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-listData = []	#書き込み用
-listData.append(now)	#時刻を追加
-listData.append(IDm)	#IDmを追加
-csvWriter.writerow(listData)	#書き込み
-
-f.close()
 
 print "Logging complete !"
