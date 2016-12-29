@@ -2,6 +2,7 @@
 
 import binascii
 import sys
+import csv
 import datetime
 import time
 import os
@@ -24,6 +25,7 @@ def connected(tag):
 clf = nfc.ContactlessFrontend('usb')
 clf.connect(rdwr={'on-connect': connected})
 
+print "%x" % IDm
 
 f = open('Logdata.csv', 'ab')
 csvWriter = csv.writer(f)
