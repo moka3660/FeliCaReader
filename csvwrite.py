@@ -1,18 +1,18 @@
 #coding:utf-8
 import csv
 
-f = open('writedata.csv', 'ab') #¥Õ¥¡¥¤¥ë¤¬Ìµ¤±¤ì¤Ðºî¤ë¡¢¤Î'a'¤ò»ØÄê¤·¤Þ¤¹
+f = open('writedata.csv', 'ab') #ï¿½Õ¥ï¿½ï¿½ï¿½ï¿½ë¤¬Ìµï¿½ï¿½ï¿½ï¿½ï¿½Ðºï¿½ï¿½ë¡¢ï¿½ï¿½'a'ï¿½ï¿½ï¿½ï¿½ï¿½ê¤·ï¿½Þ¤ï¿½
 
 csvWriter = csv.writer(f)
 
 val = 0
 for num in range(1, 5):
-   listData = [] #¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡¡#list¤Î½é´ü²½
+   listData = [] #ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½#listï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½
    val = num
-   listData.append(val)                      #list¤Ë¥Ç¡¼¥¿¤ÎÄÉ²Ã
+   listData.append(val)                      #listï¿½Ë¥Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É²ï¿½
    for loop in range(0, 5):
       val = val * 10 + num
       listData.append(val)
-   csvWriter.writerow(listData)          #1¹Ô½ñ¤­¹þ¤ß
+   csvWriter.writerow(listData)          #1ï¿½Ô½ñ¤­¹ï¿½ï¿½ï¿½
 
 f.close()
