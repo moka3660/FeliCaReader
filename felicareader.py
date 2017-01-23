@@ -26,6 +26,7 @@ def connected(tag):
 	listData = []	#書き込み用
 	listData.append(now)	#時刻を追加
 	listData.append(IDm)	#IDmを追加
+	listData.append(1)	#Ras_No.
 	csvWriter.writerow(listData)	#書き込み
 
 	f.close()	#csvを閉じる
