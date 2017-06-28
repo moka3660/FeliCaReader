@@ -11,36 +11,26 @@ import time
 import nfc
 from RPi import GPIO
 
-class FeliCaManager(object):
-    _LED_RED = 17
-    _LED_GREEN = 27
-    _LED_BLUE = 22
+#finIDm = 012900016417f107
+#    def __exit__(self):
+#        GPIO.cleanup()
+#        print "Stopped FeliCaReader."
 
-    @property
-    def __enter__(self):
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(self._LED_RED,GPIO.OUT)
-        GPIO.setup(self._LED_GREEN,GPIO.OUT)
-        GPIO.setup(self._LED_BLUE,GPIO.OUT)
-        GPIO.output(self._LED_RED,0)
-        GPIO.output(self._LED_GREEN,0)
-        GPIO.output(self._LED_BLUE,0)
-        print "Started FeliCaReader !!"
-        return self
 
-    def __exit__(self):
-        GPIO.cleanup()
-        print "Stopped FeliCaReader."
-
-    def read(self):
-        GPIO.output(self._LED_BLUE, 1)
-        time.sleep(0.5)
-        GPIO.output(self._LED_BLUE, 0)
-        print "Successfully get IDm."
 
 def main(ids_csv_filename):
-    with open(ids_csv_filename, 'a') as ids_csv_file, FeliCaManager() as felica_manager:
+    with open(ids_csv_filename, 'a') as ids_csv_file:
         clf = nfc.ContactlessFrontend('usb')
+        GPIO.cleanup()
+        GPIO.setmode(GPIO.BCM)
+        GPIO.setup(17,GPIO.OUT)
+        GPIO.setup(27,GPIO.OUT)
+        GPIO.setup(22,GPIO.OUT)
+        GPIO.output(17,0)
+        GPIO.output(27,0)
+        GPIO.output(22,0)
+        print "Started FeliCaReader !!"
+
         print "Press ^C to quit ..."
         while True:
             time.sleep(1.0)
@@ -51,12 +41,19 @@ def main(ids_csv_filename):
                 continue
 
             idm = binascii.hexlify(tag.idm)
-            felica_manager.read()
+
+            GPIO.output(22, 1)
+            time.sleep(0.5)
+            GPIO.output(22, 0)
+            print "Successfully get IDm."
             print "ID: " + idm
+
+            if idm ==
+
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
 
-
+        GPIO.cleanup()
 
 if __name__ == '__main__':
     main(sys.argv[1])
