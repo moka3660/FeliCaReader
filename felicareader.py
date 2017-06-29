@@ -18,12 +18,12 @@ def main(ids_csv_filename):
         clf = nfc.ContactlessFrontend('usb')
         GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(17,GPIO.OUT)
-        GPIO.setup(27,GPIO.OUT)
-        GPIO.setup(22,GPIO.OUT)
-        GPIO.output(17,0)
-        GPIO.output(27,0)
-        GPIO.output(22,0)
+        GPIO.setup(17,GPIO.OUT) #Red
+        GPIO.setup(27,GPIO.OUT) #Green
+        GPIO.setup(22,GPIO.OUT) #Blue
+        GPIO.output(17,1)
+        GPIO.output(27,1)
+        GPIO.output(22,1)
         print "Started FeliCaReader !!"
 
         print "Press ^C to quit ..."
@@ -32,14 +32,17 @@ def main(ids_csv_filename):
 
             tag = clf.connect(rdwr={'on-connect': None})
             if not isinstance(tag, nfc.tag.tt3.Type3Tag):
+                GPIO.output(17, 0)
+                time.sleep(0.5)
+                GPIO.output(17, 1)
                 print "Invalid card type"
                 continue
 
             idm = binascii.hexlify(tag.idm)
 
-            GPIO.output(22, 1)
-            time.sleep(0.5)
             GPIO.output(22, 0)
+            time.sleep(0.5)
+            GPIO.output(22, 1)
             print "Successfully get IDm."
             print "ID: " + idm
 
