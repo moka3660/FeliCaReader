@@ -11,7 +11,7 @@ import time
 import nfc
 from RPi import GPIO
 
-#finIDm = 83598074057322759
+finIDm = 83598074057322759
 
 def main(ids_csv_filename):
     with open(ids_csv_filename, 'a') as ids_csv_file:
@@ -46,11 +46,12 @@ def main(ids_csv_filename):
             print "Successfully get IDm."
             print "ID: " + idm
 
-#            if idm == "12900016417f107" :
-#                break
-
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
+
+            idm_dec = int(idm,16)
+            if idm_dec ==  finIDm:
+                break
 
         GPIO.cleanup()
         print "Stopped FeliCaReader."
