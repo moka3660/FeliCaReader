@@ -46,8 +46,8 @@ def main(ids_csv_filename):
             print "Successfully get IDm."
             print "ID: " + idm
 
-            if idm == "12900016417f107" :
-                break
+#            if idm == "12900016417f107" :
+#                break
 
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
