@@ -16,7 +16,7 @@ finIDm = 77408918205372968  #0113030040141A28
 def main(ids_csv_filename):
     with open(ids_csv_filename, 'a') as ids_csv_file:
         clf = nfc.ContactlessFrontend('usb')
-        GPIO.cleanup()
+#        GPIO.cleanup()
         GPIO.setmode(GPIO.BCM)
         GPIO.setup(17,GPIO.OUT) #Red
         GPIO.setup(27,GPIO.OUT) #Green
