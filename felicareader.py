@@ -11,7 +11,7 @@ import time
 import nfc
 from RPi import GPIO
 
-finIDm = 83598074057322759
+finIDm = 77408918205372968  #0113030040141A28
 
 def main(ids_csv_filename):
     with open(ids_csv_filename, 'a') as ids_csv_file:
