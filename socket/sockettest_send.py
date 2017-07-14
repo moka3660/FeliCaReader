@@ -4,35 +4,42 @@ import sys
 import time
 import socket
 
-#HOST = '153.126.194.52' #送信先IP
-#PORT = 8001 #送信先ポート
-#INTERBAL = 3 #リトライ間隔[sec]
-#RETRYTIMES = 5 #リトライ回数
+HOST = '153.126.194.52' #送信先IP
+PORT = 8001 #送信先ポート
+INTERVAL = 3 #リトライ間隔[sec]
+RETRYTIMES = 5 #リトライ回数
 
-def send(): #送信処理
+def socket_connect(host, port, interval, retries):
 
-  host = '153.126.194.52' #送信先IP
-  port = 8001 '送信先Port
-#  bufsize = 4096
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-  sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-  sock.settimeout(0.5) #接続タイムアウト値設定
+    for x in range(retries):
+        try:
+            sock.connect((host, port))
+            return sock
+        except socket.errer:
+            print "Wait"+str(interval)+"sec"
+            time.sleep(interval)
 
-  with closing(sock):
-    try:
-      sock.connect((host, port))
-      sock.send(b'raspberry')
-    except socket.timeout:
-      print(b'socketTimeout')
-    except socket.error:
-      print(b'socketError')
-    time.sleep(5)
-  return
+    sock.close()
+    return None
 
+def main():
 
-def main(): #実行時に一度テキスト送信のみ
+    sock = socket_connect(HOSTNAME, PORT, INTERVAL, RETRYTIMES)
 
-    send()
+    if sock is None:
+        print "system exit:connection error"
+        sys.exit(0)
+
+    while(1):
+        recvdata = sock.recv(1024)
+        print "ReciveData:"+recvdata
+        senddata = raw_input("SendData:")
+        sock.send(senddata)
+        if (recvdata == "quit") or (senddata == "quit"):
+            sock.close()
+            break
 
 if __name__ == '__main__':
     main()
