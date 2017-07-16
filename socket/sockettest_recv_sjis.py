@@ -2,12 +2,13 @@ import datetime
 import sys
 import time
 import socket
+import threading
 
-HOST = '153.126.194.52' #送信先IP
-PORT = 8001 #送信先ポート
-CLIENTNUM = 3 #接続クライアント数
+HOST = '153.126.194.52'
+PORT = 8001
+CLIENTNUM = 3
 
-class ConnClient(threading,Thread):
+class ConnClient(threading.Thread):
     def __init__(self, conn, addr):
         threading.Thread.__init__(self)
         self.stop_event = threading.Event()
@@ -39,10 +40,12 @@ def main():
     sock.bind((HOST, PORT))
     sock.listen(CLIENTNUM)
 
-    while (1): #無限ループ
+    while (1):
         conn, addr = sock.accept()
         print("Connected by"+str(addr))
-        connClientThread = #ひょほよほよ
+        connClientThread = ConnClient(conn, addr)
+        connClientThread.setDaemon(True)
+        connClientThread.start()
 
 if __name__ == '__main__':
     main()
