@@ -22,7 +22,7 @@ class ConnClient(threading.Thread):
 #                senddata = raw_input(str(self.addr)+"SendData:")
 #                self.conn_socket.send(senddata)
                 recvdata = self.conn_socket.recv(1024)
-                print "ReciveData"+recvdata
+                print "ReciveData"+recvdata+str(self.addr)
                 if (recvdata == "quit"):
                     break
 
