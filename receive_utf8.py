@@ -1,4 +1,5 @@
 #coding:utf-8
+import binascii
 import datetime
 import sys
 import time
@@ -23,6 +24,8 @@ class ConnClient(threading.Thread):
 #                self.conn_socket.send(senddata)
                 recvdata = self.conn_socket.recv(1024)
                 print "ReciveData"+recvdata+str(self.addr)
+                now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+                ids_csv_file.write("{},{}\n".format(now, recvdata))
                 if (recvdata == "quit"):
                     break
 
@@ -36,17 +39,18 @@ class ConnClient(threading.Thread):
     def stop(self):
         self.conn_socket.cloce()
 
-def main():
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.bind((HOST, PORT))
-    sock.listen(CLIENTNUM)
+def main(ids_csv_filename):
+    with open(ids_csv_filename, 'a') as ids_csv_file:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.bind((HOST, PORT))
+        sock.listen(CLIENTNUM)
 
-    while (1):
-        conn, addr = sock.accept()
-        print("Connected by"+str(addr))
-        connClientThread = ConnClient(conn, addr)
-        connClientThread.setDaemon(True)
-        connClientThread.start()
+        while (1):
+            conn, addr = sock.accept()
+            print("Connected by"+str(addr))
+            connClientThread = ConnClient(conn, addr)
+            connClientThread.setDaemon(True)
+            connClientThread.start()
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv[1])
