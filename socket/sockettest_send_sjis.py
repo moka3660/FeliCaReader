@@ -37,7 +37,7 @@ def main():
 #        print "ReciveData:"+recvdata
         senddata = raw_input("SendData:")
         sock.send(senddata)
-        if (recvdata == "quit") or (senddata == "quit"):
+        if (senddata == "quit"):
             sock.close()
             break
 

@@ -1,4 +1,4 @@
-#coding:sift-JIS
+#coding:utf-8
 import datetime
 import sys
 import time
