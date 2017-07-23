@@ -18,7 +18,7 @@ INTERVAL = 3
 RETRYTIMES = 5
 
 finIDm = 77408918205372968  #0113030040141A28
-RasNum = 1
+RasNum = "1"
 
 def socket_connect(host, port, interval, retries):
 
@@ -74,7 +74,7 @@ def main(ids_csv_filename):
             print "Successfully get IDm."
             print "ID: " + idm
 
-            sock.send(idm,RasNum)
+            sock.send(idm+","+RasNum)
 
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
