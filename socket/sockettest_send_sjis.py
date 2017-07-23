@@ -4,8 +4,8 @@ import sys
 import time
 import socket
 
-HOST = '153.126.194.52'
-PORT = 8001
+HOST = '---'
+PORT = ---
 INTERVAL = 3
 RETRYTIMES = 5
 
@@ -33,8 +33,8 @@ def main():
         sys.exit(0)
 
     while(1):
-        recvdata = sock.recv(1024)
-        print "ReciveData:"+recvdata
+#        recvdata = sock.recv(1024)
+#        print "ReciveData:"+recvdata
         senddata = raw_input("SendData:")
         sock.send(senddata)
         if (recvdata == "quit") or (senddata == "quit"):

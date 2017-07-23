@@ -5,8 +5,8 @@ import time
 import socket
 import threading
 
-HOST = '153.126.194.52'
-PORT = 8001
+HOST = '---'
+PORT = ---
 CLIENTNUM = 3
 
 class ConnClient(threading.Thread):
@@ -19,8 +19,8 @@ class ConnClient(threading.Thread):
     def run(self):
         try:
             while (1):
-                senddata = raw_input(str(self.addr)+"SendData:")
-                self.conn_socket.send(senddata)
+#                senddata = raw_input(str(self.addr)+"SendData:")
+#                self.conn_socket.send(senddata)
                 recvdata = self.conn_socket.recv(1024)
                 print "ReciveData"+recvdata
                 if (recvdata == "quit") or (senddata == "quit"):
