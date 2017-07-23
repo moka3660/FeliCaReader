@@ -26,7 +26,7 @@ class ConnClient(threading.Thread):
                 print "ReciveData"+recvdata+str(self.addr)
                 now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
                 ids_csv_file.write("{},{}\n".format(now, recvdata))
-                if (recvdata == "quit"):
+                if (recvdata == "quit") or (recvdata == ""):
                     break
 
         except socket.error:
@@ -40,6 +40,7 @@ class ConnClient(threading.Thread):
         self.conn_socket.cloce()
 
 def main(ids_csv_filename):
+    global ids_csv_file
     with open(ids_csv_filename, 'a') as ids_csv_file:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.bind((HOST, PORT))
