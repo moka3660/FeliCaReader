@@ -14,32 +14,33 @@ from RPi import GPIO
 finIDm = 77408918205372968  #0113030040141A28
 
 def main(ids_csv_filename):
-    with open(ids_csv_filename, 'a') as ids_csv_file:
-        clf = nfc.ContactlessFrontend('usb')
+#    with open(ids_csv_filename, 'a') as ids_csv_file:
+    clf = nfc.ContactlessFrontend('usb')
 #        GPIO.cleanup()
-        GPIO.setmode(GPIO.BCM)
-        GPIO.setup(17,GPIO.OUT) #Red
-        GPIO.setup(27,GPIO.OUT) #Green
-        GPIO.setup(22,GPIO.OUT) #Blue
-        GPIO.output(17,1)
-        GPIO.output(27,1)
-        GPIO.output(22,1)
-        print "Started FeliCaReader !!"
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(17,GPIO.OUT) #Red
+    GPIO.setup(27,GPIO.OUT) #Green
+    GPIO.setup(22,GPIO.OUT) #Blue
+    GPIO.output(17,1)
+    GPIO.output(27,1)
+    GPIO.output(22,1)
+    print "Started FeliCaReader !!"
 
-        print "Press ^C to quit ..."
-        while True:
-            time.sleep(1.0)
+    print "Press ^C to quit ..."
+    while True:
+        time.sleep(1.0)
 
-            tag = clf.connect(rdwr={'on-connect': None})
-            if not isinstance(tag, nfc.tag.tt3.Type3Tag):
-                GPIO.output(17, 0)
-                time.sleep(0.5)
-                GPIO.output(17, 1)
-                print "Invalid card type"
-                continue
+        tag = clf.connect(rdwr={'on-connect': None})
+        if not isinstance(tag, nfc.tag.tt3.Type3Tag):
+            GPIO.output(17, 0)
+            time.sleep(0.5)
+            GPIO.output(17, 1)
+            print "Invalid card type"
+            continue
 
-            idm = binascii.hexlify(tag.idm)
+        idm = binascii.hexlify(tag.idm)
 
+        with open(ids_csv_filename, 'a') as ids_csv_file:
             GPIO.output(22, 0)
             time.sleep(0.5)
             GPIO.output(22, 1)
@@ -48,13 +49,14 @@ def main(ids_csv_filename):
 
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
+            f.close()
 
             idm_dec = int(idm,16)
             if idm_dec ==  finIDm:
                 break
 
-        GPIO.cleanup()
-        print "Stopped FeliCaReader."
+    GPIO.cleanup()
+    print "Stopped FeliCaReader."
 
 if __name__ == '__main__':
     main(sys.argv[1])
