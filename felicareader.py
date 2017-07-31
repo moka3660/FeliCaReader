@@ -49,7 +49,7 @@ def main(ids_csv_filename):
 
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
             ids_csv_file.write("{},{}\n".format(now, idm))
-            f.close()
+            ids_csv_file.close()
 
             idm_dec = int(idm,16)
             if idm_dec ==  finIDm:
