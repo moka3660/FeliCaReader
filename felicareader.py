@@ -21,9 +21,9 @@ def main(ids_csv_filename):
     GPIO.setup(17,GPIO.OUT) #Red
     GPIO.setup(27,GPIO.OUT) #Green
     GPIO.setup(22,GPIO.OUT) #Blue
-    GPIO.output(17,1)       #LEDoff
-    GPIO.output(27,1)
-    GPIO.output(22,1)
+    GPIO.output(17,0)       #LEDoff
+    GPIO.output(27,0)
+    GPIO.output(22,0)
     print "Started FeliCaReader !!"
 
     print "Press ^C to quit ..."
@@ -32,18 +32,18 @@ def main(ids_csv_filename):
 
         tag = clf.connect(rdwr={'on-connect': None})
         if not isinstance(tag, nfc.tag.tt3.Type3Tag):
-            GPIO.output(17, 0)  #RedLEDon
+            GPIO.output(17, 1)  #RedLEDon
             time.sleep(0.5)
-            GPIO.output(17, 1)
+            GPIO.output(17, 0)
             print "Invalid card type"
             continue
 
         idm = binascii.hexlify(tag.idm)
 
         with open(ids_csv_filename, 'a') as ids_csv_file:   #csv open
-            GPIO.output(22, 0)  #BlueLEDon
+            GPIO.output(22, 1)  #BlueLEDon
             time.sleep(0.5)
-            GPIO.output(22, 1)
+            GPIO.output(22, 0)
             print "Successfully get IDm."
             print "ID: " + idm
 
