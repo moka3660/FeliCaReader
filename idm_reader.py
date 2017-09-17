@@ -1,6 +1,9 @@
+# -*- coding: utf-8 -*-
+
 import binascii
 import nfc
 
+finIDm = 72340248454488070  #010101129C17E006
 
 class MyCardReader(object):
 
@@ -23,3 +26,7 @@ if __name__ == '__main__':
         cr.read_id()
         print "released"
         print cr.idm
+
+        idm_dec =int(cr.idm,16)
+        if idm_dec == finIDm:
+            break
