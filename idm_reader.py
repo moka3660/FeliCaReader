@@ -19,7 +19,7 @@ class MyCardReader(object):
         finally:
             clf.close()
 
-if __name__ == '__main__':
+def main():
     cr = MyCardReader()
     while True:
         print "touch card:"
@@ -30,3 +30,7 @@ if __name__ == '__main__':
         idm_dec =int(cr.idm,16)
         if idm_dec == finIDm:
             break
+
+
+if __name__ == '__main__':
+    main()
