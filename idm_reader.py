@@ -3,7 +3,7 @@
 import binascii
 import nfc
 
-finIDm = 72340248454488070  #010101129C17E006
+finIDm = 72340248454488070  #010101129C17E006 [ICOCA]
 
 class MyCardReader(object):
 
