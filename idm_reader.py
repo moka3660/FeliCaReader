@@ -1,11 +1,25 @@
-import nfc
 import binascii
+import nfc
 
-def connected(tag):
-    idm = binascii.hexlify(tag.idm)
-    print(idm)
-    return idm
 
-clf = nfc.ContactlessFrontend('usb')
-clf.connect(rdwr={'on-connect': connected}) # now touch a tag
-clf.close()
+class MyCardReader(object):
+
+    def on_connect(self, tag):
+        print "touched"
+        self.idm = binascii.hexlify(tag.idm)
+        return True
+
+    def read_id(self):
+        clf = nfc.ContactlessFrontend('usb')
+        try:
+            clf.connect(rdwr={'on-connect': self.on_connect})
+        finally:
+            clf.close()
+
+if __name__ == '__main__':
+    cr = MyCardReader()
+    while True:
+        print "touch card:"
+        cr.read_id()
+        print "released"
+        print cr.idm
