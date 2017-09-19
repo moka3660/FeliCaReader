@@ -3,6 +3,8 @@
 import binascii
 import nfc
 import sys
+import time
+import datetime
 
 finIDm = 72340248454488070  #010101129C17E006 [ICOCA]
 
@@ -33,7 +35,8 @@ def main(ids_csv_filename):
             print "Successfully get IDm."
             print "IDm: " + cr.idm
 
-            ids_csv_file.write("{}\n".format(cr.idm))
+            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+            ids_csv_file.write("{},{}\n".format(now, cr.idm))
             ids_csv_file.close()
 
             idm_dec =int(cr.idm,16)
