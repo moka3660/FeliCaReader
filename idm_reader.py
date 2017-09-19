@@ -5,6 +5,7 @@ import nfc
 import sys
 import time
 import datetime
+from RPi import GPIO
 
 finIDm = 72340248454488070  #010101129C17E006 [ICOCA]
 
@@ -14,6 +15,9 @@ class MyCardReader(object):
         print "touched"
         self.idm = binascii.hexlify(tag.idm)
         # LED
+        GPIO.output(22,1)   #BlueLEDon
+        time.sleep(0.5)
+        GPIO.output(22,0)
         return True
 
     def read_id(self):
@@ -24,9 +28,17 @@ class MyCardReader(object):
             clf.close()
 
 def main(ids_csv_filename):
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(17,GPIO.OUT) #Red
+    GPIO.setup(27,GPIO.OUT) #Green
+    GPIO.setup(22,GPIO.OUT) #Blue
+    GPIO.output(17,0)       #LEDoff
+    GPIO.output(27,0)
+    GPIO.output(22,0)
+    print "Started idm_reader !!!"
     cr = MyCardReader()
     while True:
-        print "touch card:"
+#        print "touch card:"
         cr.read_id()
 #        print "released"
 #        print cr.idm
