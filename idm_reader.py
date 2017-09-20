@@ -8,6 +8,7 @@ import datetime
 from RPi import GPIO
 
 finIDm = 72340248454488070  #010101129C17E006 [ICOCA]
+RasNum = 0
 
 class MyCardReader(object):
 
@@ -48,7 +49,7 @@ def main(ids_csv_filename):
             print "IDm: " + cr.idm
 
             now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            ids_csv_file.write("{},{}\n".format(now, cr.idm))
+            ids_csv_file.write("{},{},{}\n".format(now, cr.idm, RasNum))
             ids_csv_file.close()
 
             idm_dec =int(cr.idm,16)
