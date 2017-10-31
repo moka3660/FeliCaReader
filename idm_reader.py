@@ -51,8 +51,8 @@ def main(ids_csv_filename):
             idm_dec =int(cr.idm,16)
 
 #            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            today = datetime.datetime.now().strftime("%Y%m%d")
-            now = datetime.datetime.now().strftime("%H%M%S")
+            today = datetime.datetime.now().strftime("%Y/%m/%d")
+            now = datetime.datetime.now().strftime("%H:%M:%S")
             ids_csv_file.write("{},{},{},{},{}\n".format(today, now, cr.idm, idm_dec, RasNum))
             ids_csv_file.close()
 
