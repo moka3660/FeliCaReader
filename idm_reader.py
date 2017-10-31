@@ -48,11 +48,14 @@ def main(ids_csv_filename):
             print "Successfully get IDm."
             print "IDm: " + cr.idm
 
-            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
-            ids_csv_file.write("{},{},{}\n".format(now, cr.idm, RasNum))
+            idm_dec =int(cr.idm,16)
+
+#            now = datetime.datetime.now().strftime("%Y/%m/%d %H:%M:%S")
+            today = datetime.datetime.now().strftime("%Y%m%d")
+            now = datetime.datetime.now().strftime("%H%M%S")
+            ids_csv_file.write("{},{},{},{},{}\n".format(today, now, cr.idm, idm_dec, RasNum))
             ids_csv_file.close()
 
-            idm_dec =int(cr.idm,16)
             if idm_dec == finIDm:
                 break
 
